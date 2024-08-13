@@ -44,7 +44,7 @@ To run the test, ensure your environment meets the following requirements:
 
 3. Run the Robot Framework test script:
    ```bash
-   robot -d results test_script.robot
+   robot -d results TC1.robot
 
 #### Script Explanation
 - ***Browser Type***: The script is configured to use Firefox.
