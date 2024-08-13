@@ -56,10 +56,10 @@ To run the test, ensure your environment meets the following requirements:
 ###  Project Structure
     yourproject/
     │
-    ├── test_script.robot    # The main Robot Framework script
+    ├── TC1.robot            # The main Robot Framework script
     ├── requirements.txt     # Python dependencies
     ├── README.md            # This README file
-    └── results/             # Directory for storing test results (logs, screenshots)
+    └── Results/             # Directory for storing test results (logs, screenshots)
 
 ### XPath Locators Used
 - Google Search Input Field: name=q
