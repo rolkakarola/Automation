@@ -17,16 +17,18 @@ To run the test, ensure your environment meets the following requirements:
 
 ### Prerequisites
 
-1. **Python 3.11**: Ensure Python 3.11 is installed on your system. If not, download and install it from the [official Python website](https://www.python.org/downloads/).
+1. **Python 3.11**: Ensure Python 3.11 is installed on your system. If not, download and install it from the [official Python website](https://www.python.org/downloads/) or use homebrew:
+   ```bash
+   brew install python@3.11
 
-2. **Robot Framework**: Install Robot Framework using pip:
+3. **Robot Framework**: Install Robot Framework using pip or pip3 (Linux/macOS):
    ```bash
    pip install robotframework==6.0.1
    pip install robotframework-seleniumlibrary==6.1.0
 
-3. **Firefox Browser**: Download and install the latest version of Firefox from [here](https://www.mozilla.org/en-US/firefox/new).
+4. **Firefox Browser**: Download and install the latest version of Firefox from [here](https://www.mozilla.org/en-US/firefox/new).
 
-4. **Geckodriver**: Download the compatible Geckodriver for your Firefox version from [here](https://github.com/mozilla/geckodriver/releases), and ensure it's available in your system's PATH.
+5. **Geckodriver**: Download the compatible Geckodriver for your Firefox version from [here](https://github.com/mozilla/geckodriver/releases), and ensure it's available in your system's PATH.
 ## Installation
 
 ### Running the script
