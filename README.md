@@ -25,7 +25,8 @@ To run the test, your environment should have the following requirements:
 3. **Robot Framework**: Install Robot Framework using pip or pip3 (Linux/macOS):
       ```bash
       pip install robotframework==6.0.1
-      pip install robotframework-seleniumlibrary==6.1.0
+      pip install robotframework-seleniumlibrary==6.5.0
+      pip install selenium==4.10.0
       ```
    Alternatively you can install the required Python packages after cloning the repository (for more look at Installation).
 4. **Firefox Browser**: Download and install the latest version of Firefox from [here](https://www.mozilla.org/en-US/firefox/new).
