@@ -1,56 +1,62 @@
 *** Settings ***
 Library           SeleniumLibrary
 Library           OperatingSystem      
+Library    SeleniumLibrary    timeout=30s
 
 *** Variables ***
-${URL}                           https://www.google.com
-${SEARCH_TERM}                   nokia wikipedia
-${BROWSER}                       firefox
-${EXPECTED_YEAR}                 1865
-${GOOGLE_SEARCH_INPUT}           name=q     
-${WIKIPEDIA_LINK_XPATH}         //a[contains(@href, 'wikipedia.org')]
-
-#change 'założone' (Founded) if your wikipedia is not in polish
-${FOUNDING_YEAR_XPATH}          //table[contains(@class, 'infobox')]//th[contains(text(), 'założone zostało w roku 1865')]/following-sibling::td[1]    
+${URL}                           https://www.google.com               
+${SEARCH_TERM}                   nokia wikipedia                       
+${BROWSER}                       firefox                                
+${EXPECTED_FOUNDING_YEAR}        1865                                    
+${GOOGLE_SEARCH_INPUT}           xpath://*[@id="APjFqb"]    
+${WIKIPEDIA_LINK_XPATH}          //a[contains(@href, 'wikipedia.org')]     #check it
+${FOUNDING_YEAR_XPATH}           //a[contains(@href, '/wiki/1865')]
 ${SCREENSHOT_FILENAME}           screenshot.png
 ${ACCEPT_COOKIES_BUTTON}         id=L2AGLb  
 
 *** Test Cases ***
-Search Nokia Wikipedia
-    Open Browser    ${URL}    ${BROWSER}  
-    Maximize Browser Window   
-    Accept Cookies    #calling the keyword
-    Input Text    ${GOOGLE_SEARCH_INPUT}    ${SEARCH_TERM}
-    Press Keys    ${GOOGLE_SEARCH_INPUT}    ENTER    
-    Wait Until Page Contains Element    ${WIKIPEDIA_LINK_XPATH}    timeout=10
+Valid Screenshot
+    Open Google in Firefox
+    Accept Cookies    
+    Search for Nokia 
+    Verify Link
+    Wait Until Page Loads
+    Capture Screenshot
+    Verify Page Title 
+    Founding Year
+    [Teardown]    Close Browser
 
-    ${wikipedia_link}=    Get WebElements    ${WIKIPEDIA_LINK_XPATH}
-    Run Keyword If    ${wikipedia_link}    Click Element    ${wikipedia_link}[0]
+*** Keywords ***
+Open Google in Firefox
+    Open Browser    ${URL}    ${BROWSER}  
+    Maximize Browser Window 
+
+Accept Cookies 
+    Wait Until Element Is Visible    ${ACCEPT_COOKIES_BUTTON}         # accepts the cookies
+    Click Element    ${ACCEPT_COOKIES_BUTTON}
+
+Search for Nokia 
+    Input Text    ${GOOGLE_SEARCH_INPUT}    ${SEARCH_TERM}
+    Press Keys    ${GOOGLE_SEARCH_INPUT}    ENTER                      # search button is the same as the input field
+
+Verify link
+    Wait Until Page Contains Element    ${WIKIPEDIA_LINK_XPATH}        # Fails if timeout expires
+    ${wikipedia_link}=    Get WebElement    ${WIKIPEDIA_LINK_XPATH}    # stores the result
+    
+    Run Keyword If    ${wikipedia_link}    Click Element    ${wikipedia_link}
     ...    ELSE    Log To Console    "Wikipedia link not found in search results."    critical
 
-    Wait Until Page Loads
+Wait Until Page Loads
+    Wait Until Page Contains Element    id=firstHeading   
+
+Capture Screenshot
     Capture Page Screenshot    ${SCREENSHOT_FILENAME}
     Log    Screenshot captured and saved as ${SCREENSHOT_FILENAME}
 
-    #wait for the founding year element to be visible
-    Wait Until Element Is Visible    ${FOUNDING_YEAR_XPATH}    timeout=10
-    ${founding_year}=    Extract Founding Year
-    Should Be Equal As Strings    ${founding_year}    ${EXPECTED_YEAR}
-
-*** Keywords ***
-Wait Until Page Loads
-    Wait Until Page Contains Element    id=firstHeading    timeout=10
-
-Extract Founding Year
-    ${year_element}=    Get Text    ${FOUNDING_YEAR_XPATH}
-    ${year}=    Set Variable    ${year_element.strip()}  # Strip whitespace using Python's string method
-    RETURN    ${year}  # Use RETURN instead of [Return]
-
-Verify Page Title Contains
-    [Arguments]    ${expected_title}
+Verify Page Title
     ${actual_title}=    Get Title
-    Should Contain    ${actual_title}    ${expected_title}
+    ${container}=    Should Contain    ${actual_title}    Nokia    #checks if the title has a Nokia in it 
 
-Accept Cookies
-    Wait Until Element Is Visible    ${ACCEPT_COOKIES_BUTTON}    timeout=10
-    Click Element    ${ACCEPT_COOKIES_BUTTON}
+Founding Year  
+    ${founding_year}=    Get Text    ${FOUNDING_YEAR_XPATH}
+    Should Be Equal As Numbers    ${founding_year}    ${EXPECTED_FOUNDING_YEAR}    Founding year is not as expected.
