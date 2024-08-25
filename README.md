@@ -50,6 +50,29 @@ To run the test, your environment should have the following requirements:
 3. Run the Robot Framework test script:
    ```bash
    robot -d results TC1.robot
+   ```
+   The command above specifies the directory where the test results will be stored. You can change the name 'results' to your own directory name.
+
+##  Project Structure
+
+#### Results
+
+After running the script you will end up with results folder that contains five output files which provides different types of information about your test execution:
+
+    Automation/
+    │
+    ├── TC1.robot            # The main Robot Framework script
+    ├── requirements.txt     # Python dependencies
+    ├── README.md            
+    └── results/             # Directory with results 
+        │
+        ├── geckodriver-1.log    # Information about browser operations, HTTP requests and responses       
+        ├── output.xml           # Raw test output in XML format
+        ├── screenshot.png       
+        ├── report.html          # Summary of the test execution and overall test results      
+        └── log.html             # Detailed information about each step of the test execution
+        
+   Both of the html files need to opened in a web browser to see the results.
 
 #### Script Explanation
 - ***Browser Type***: The script is configured to use Firefox.
@@ -58,21 +81,6 @@ To run the test, your environment should have the following requirements:
 - ***Error Handling***: The script includes error handling to manage cases where the Wikipedia link is not found.
 - ***Teardown***: The script ensures the browser is closed after the test, even if an error occurs.
 
-###  Project Structure
-    Automation/
-    │
-    ├── TC1.robot            # The main Robot Framework script
-    ├── requirements.txt     # Python dependencies
-    ├── README.md            # This README file
-    └── results/             # Directory for storing test results (logs, screenshots) that will be created automatically 
-
-### XPath Locators Used
-- Google Search Input Field: name=q
-- Wikipedia Link in Results: //a[contains(@href, 'wikipedia.org')]
-- Nokia Founding Year on Wikipedia Page: //table[contains(@class, 'infobox')]//th[contains(text(), 'Założona')]/following-sibling::td[1]
-- Screenshot Filename: screenshot.png
-- Google Search Button: name=btnK
-- Accept Cookies Button: id=L2AGLb
 
 
 
