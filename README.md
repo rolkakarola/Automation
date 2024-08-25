@@ -3,7 +3,7 @@
 ## Description
 This project demonstrates an automated test using [Robot Framework](https://robotframework.org/?tab=libraries#resources) and [SeleniumLibrary](https://robotframework.org/SeleniumLibrary/SeleniumLibrary.html#library-documentation-top) to perform a series of actions in the Firefox browser.
 
-It opens a Nokia wikipedia page by searching the term in google. The code also takes a screenshot of the website and verifies the founding year of the company.
+The Python scipt uses a Selenium library for a web testing. It opens a [Google](https://www.google.com) search bar and searches for the term "nokia wikipedia." After the results are loaded, it clicks the first existing link and verifies it. The script also checks if the page title contains "Nokia" and captures a screenshot of the entire page. Additionally, the script verifies the founding year.
 
 For more information about Selenium Library click [here](https://github.com/robotframework/SeleniumLibrary/?tab=readme-ov-file).
 ## Environment Setup
